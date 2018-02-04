@@ -56,8 +56,9 @@ namespace Shadowsocks
                 }
 #endif
                 Directory.SetCurrentDirectory(Application.StartupPath);
-#if !_CONSOLE
                 int try_times = 0;
+#if !_CONSOLE
+                //int try_times = 0;
                 while (Configuration.Load() == null)
                 {
                     if (try_times >= 5)
