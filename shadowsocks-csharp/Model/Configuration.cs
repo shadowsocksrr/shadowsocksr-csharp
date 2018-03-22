@@ -741,6 +741,7 @@ namespace Shadowsocks.Model
         {
             try
             {
+                if (File.Exists("transfer_log.json") & Directory.Exists("temp")) File.Move("transfer_log.json", LOG_FILE);
                 string config_str = File.ReadAllText(LOG_FILE);
                 ServerTransferTotal config = new ServerTransferTotal();
                 try
