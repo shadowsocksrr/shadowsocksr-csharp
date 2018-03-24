@@ -732,7 +732,7 @@ namespace Shadowsocks.Model
     public class ServerTransferTotal
     {
         private static string LOG_FILE = @"temp\transfer_log.json";
-        private static string LOG_FILE_USED = "transfer_log.json";
+        private static string LOG_FILE_OLD = "transfer_log.json";
 
         public Dictionary<string, object> servers = new Dictionary<string, object>();
         private int saveCounter;
@@ -742,8 +742,8 @@ namespace Shadowsocks.Model
         {
             try
             {
-                if (File.Exists(LOG_FILE_USED) && Directory.Exists("temp")) {   //旧LOG文件转移
-                    if (File.Exists(LOG_FILE)) File.Delete(LOG_FILE_USED); else File.Move(LOG_FILE_USED, LOG_FILE);
+                if (File.Exists(LOG_FILE_OLD) && Directory.Exists("temp")) {   //旧LOG文件转移
+                    if (File.Exists(LOG_FILE)) File.Delete(LOG_FILE_OLD); else File.Move(LOG_FILE_OLD, LOG_FILE);
                 }
                 string config_str = File.ReadAllText(LOG_FILE);
                 ServerTransferTotal config = new ServerTransferTotal();
