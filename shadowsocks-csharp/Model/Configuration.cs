@@ -742,8 +742,14 @@ namespace Shadowsocks.Model
         {
             try
             {
-                if (File.Exists(LOG_FILE_OLD) && Directory.Exists("temp")) {   //旧LOG文件转移
-                    if (File.Exists(LOG_FILE)) File.Delete(LOG_FILE_OLD); else File.Move(LOG_FILE_OLD, LOG_FILE);
+                if (File.Exists(LOG_FILE_OLD))
+                {
+                    if (File.Exists(LOG_FILE)) File.Delete(LOG_FILE_OLD);
+                    else
+                    {
+                        if (!Directory.Exists("temp")) Directory.CreateDirectory("temp");
+                        File.Move(LOG_FILE_OLD, LOG_FILE);
+                    }
                 }
                 string config_str = File.ReadAllText(LOG_FILE);
                 ServerTransferTotal config = new ServerTransferTotal();
