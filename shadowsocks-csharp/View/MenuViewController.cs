@@ -591,6 +591,7 @@ namespace Shadowsocks.View
                             }
                         }
                     }
+                    config.configs.Sort((x, y) => x.remarks.CompareTo(y.remarks));
                     controller.SaveServersConfig(config);
                 }
             }
