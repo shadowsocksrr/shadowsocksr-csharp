@@ -153,6 +153,16 @@ namespace Shadowsocks.View
             bool global = config.sysProxyMode == (int)ProxyMode.Global;
             bool random = config.random;
 
+
+            // we want to show more details but notify icon title is limited to 63 characters
+            string text = (enabled ?
+                    (global ? I18N.GetString("Global") : I18N.GetString("PAC")) :
+                    I18N.GetString("Disable system proxy"))
+                    + "\r\n"
+                    + String.Format(I18N.GetString("Running: Port {0}"), config.localPort)  // this feedback is very important because they need to know Shadowsocks is running
+                    ;
+            _notifyIcon.Text = text.Substring(0, Math.Min(63, text.Length)).ToString();
+
             try
             {
                 Bitmap icon = new Bitmap("icon.png");
@@ -211,15 +221,6 @@ namespace Shadowsocks.View
                     DestroyIcon(newIcon.Handle);
                 }
             }
-
-            // we want to show more details but notify icon title is limited to 63 characters
-            string text = (enabled ?
-                    (global ? I18N.GetString("Global") : I18N.GetString("PAC")) :
-                    I18N.GetString("Disable system proxy"))
-                    + "\r\n"
-                    + String.Format(I18N.GetString("Running: Port {0}"), config.localPort)  // this feedback is very important because they need to know Shadowsocks is running
-                    ;
-            _notifyIcon.Text = text.Substring(0, Math.Min(63, text.Length));
         }
 
         private MenuItem CreateMenuItem(string text, EventHandler click)
