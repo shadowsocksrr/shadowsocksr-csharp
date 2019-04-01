@@ -142,6 +142,7 @@ namespace Shadowsocks.Model
 
         public bool nodeFeedAutoUpdate;
         public List<ServerSubscribe> serverSubscribes;
+        public string configOrders;
 
         public Dictionary<string, string> token = new Dictionary<string, string>();
         public Dictionary<string, PortMapConfig> portMap = new Dictionary<string, PortMapConfig>();
@@ -404,6 +405,8 @@ namespace Shadowsocks.Model
             {
             };
 
+            configOrders = "";
+
             configs = new List<Server>()
             {
                 GetDefaultServer()
@@ -441,6 +444,7 @@ namespace Shadowsocks.Model
             isHideTips = config.isHideTips;
             nodeFeedAutoUpdate = config.nodeFeedAutoUpdate;
             serverSubscribes = config.serverSubscribes;
+            configOrders = config.configOrders;
         }
 
         public void FixConfiguration()
@@ -487,6 +491,51 @@ namespace Shadowsocks.Model
                 {
                     id[server.id] = 0;
                 }
+            }
+
+            SortConfigs();
+        }
+
+        public void SortConfigs()
+        {
+            if (configOrders != "")
+            {
+                string[] res = configOrders.Split(',');
+
+                configs.Sort((x, y) => {
+                    int o1 = int.MaxValue, o2 = int.MaxValue;
+
+                    for (int n = 0; n < res.Length; n++)
+                    {
+                        if (res[n] == "")
+                        {
+                            continue;
+                        }
+
+                        if (x.remarks.Contains(res[n]) && o1 == int.MaxValue)
+                        {
+                            o1 = n;
+                        }
+
+                        if (y.remarks.Contains(res[n]) && o2 == int.MaxValue)
+                        {
+                            o2 = n;
+                        }
+                    }
+
+                    if (o1 == o2)
+                    {
+                        return x.remarks.CompareTo(y.remarks);
+                    }
+                    else
+                    {
+                        return o1 - o2;
+                    }
+                });
+            }
+            else
+            {
+                configs.Sort((x, y) => x.remarks.CompareTo(y.remarks));
             }
         }
 

@@ -592,7 +592,8 @@ namespace Shadowsocks.View
                             }
                         }
                     }
-                    config.configs.Sort((x, y) => x.remarks.CompareTo(y.remarks));
+
+                    config.SortConfigs();
                     controller.SaveServersConfig(config);
                 }
             }
@@ -712,6 +713,7 @@ namespace Shadowsocks.View
                     select_group = group_name;
                 }
 
+                //group[group_name] 代表一组节点
                 if (group.ContainsKey(group_name))
                 {
                     group[group_name].MenuItems.Add(item);
