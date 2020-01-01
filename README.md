@@ -1,7 +1,7 @@
 ShadowsocksR for Windows
 =======================
 
-[![Build Status]][Appveyor]
+[![Build Status]][Appveyor]    <b> <=== \[click this to download nightly version\] </b>
 
 #### Download
 
@@ -60,7 +60,7 @@ Visual Studio Community 2017 is recommended.
 
 GPLv3
 
-Copyright © Akkariiin 2018. Forked from ShadowsocksR by BreakWa11
+Copyright © Akkariiin 2019. Forked from ShadowsocksR by BreakWa11
 
 [Appveyor]:       https://ci.appveyor.com/project/Akkariiin/shadowsocksr-csharp
 [Build Status]:   https://ci.appveyor.com/api/projects/status/ey901turnakim5nv/branch/master?svg=true

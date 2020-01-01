@@ -2,19 +2,17 @@
 using Shadowsocks.Model;
 using Shadowsocks.Properties;
 using System;
-using System.IO;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
 using System.Runtime.InteropServices;
-
+using System.Text.RegularExpressions;
+using System.Threading;
+using System.Windows.Forms;
+using System.Reflection;
 using ZXing;
 using ZXing.Common;
 using ZXing.QrCode;
-using System.Threading;
-using System.Text.RegularExpressions;
 
 namespace Shadowsocks.View
 {
@@ -73,8 +71,8 @@ namespace Shadowsocks.View
         private bool configfrom_open = false;
         private List<EventParams> eventList = new List<EventParams>();
 
-        [System.Runtime.InteropServices.DllImport("user32.dll", CharSet = CharSet.Auto)]
-        extern static bool DestroyIcon(IntPtr handle);
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        static extern bool DestroyIcon(IntPtr handle);
 
         public MenuViewController(ShadowsocksController controller)
         {
@@ -157,8 +155,8 @@ namespace Shadowsocks.View
             {
                 Bitmap icon = new Bitmap("icon.png");
                 Icon newIcon = Icon.FromHandle(icon.GetHicon());
+                icon.Dispose();
                 _notifyIcon.Icon = newIcon;
-                DestroyIcon(newIcon.Handle);
             }
             catch
             {
@@ -193,23 +191,24 @@ namespace Shadowsocks.View
                 }
 
                 Bitmap iconCopy = new Bitmap(icon);
+                for (int x = 0; x < iconCopy.Width; x++)
                 {
-                    for (int x = 0; x < iconCopy.Width; x++)
+                    for (int y = 0; y < iconCopy.Height; y++)
                     {
-                        for (int y = 0; y < iconCopy.Height; y++)
-                        {
-                            Color color = icon.GetPixel(x, y);
-                            iconCopy.SetPixel(x, y,
-                                Color.FromArgb((byte)(color.A * mul_a),
-                                ((byte)(color.R * mul_r)),
-                                ((byte)(color.G * mul_g)),
-                                ((byte)(color.B * mul_b))));
-                        }
+                        Color color = icon.GetPixel(x, y);
+                        iconCopy.SetPixel(x, y,
+
+                            Color.FromArgb((byte)(color.A * mul_a),
+                            ((byte)(color.R * mul_r)),
+                            ((byte)(color.G * mul_g)),
+                            ((byte)(color.B * mul_b))));
                     }
-                    Icon newIcon = Icon.FromHandle(iconCopy.GetHicon());
-                    _notifyIcon.Icon = newIcon;
-                    DestroyIcon(newIcon.Handle);
                 }
+                Icon newIcon = Icon.FromHandle(iconCopy.GetHicon());
+                icon.Dispose();
+                iconCopy.Dispose();
+
+                _notifyIcon.Icon = newIcon;
             }
 
             // we want to show more details but notify icon title is limited to 63 characters
@@ -219,7 +218,80 @@ namespace Shadowsocks.View
                     + "\r\n"
                     + String.Format(I18N.GetString("Running: Port {0}"), config.localPort)  // this feedback is very important because they need to know Shadowsocks is running
                     ;
-            _notifyIcon.Text = text.Substring(0, Math.Min(63, text.Length));
+
+            // if we on newer than Windows 2000 , we can extend notify icon title limit to 127 characters by Reflection it
+            // https://stackoverflow.com/questions/579665/how-can-i-show-a-systray-tooltip-longer-than-63-chars
+            bool extendOk = false;
+            try
+            {
+                Version win2000 = new Version("5.0");   // http://www.vb-helper.com/howto_net_os_version.html
+                if (Environment.OSVersion.Version.CompareTo(win2000) > 0)
+                {
+                    if (config.random)
+                    {
+                        text = text
+                               + "\r\n"
+                               + String.Format(I18N.GetString("Load balance") + ":" + I18N.GetString(config.balanceAlgorithm))
+                            ;
+                        if (config.randomInGroup)
+                        {
+                            text = text
+                                   + "["
+                                   + String.Format(I18N.GetString("Balance in group"))
+                                   + "]"
+                                ;
+                        }
+                        if (config.autoBan)
+                        {
+                            text = text
+                                   + "$"
+                                   + String.Format(I18N.GetString("AutoBan"))
+                                   + "$"
+                                ;
+                        }
+                    }
+                    else
+                    {
+                        if (config.index >= 0 && config.index < config.configs.Count)
+                        {
+                            var selServer = config.configs[config.index];
+                            text = text
+                                   + "\r\n"
+                                   + selServer.FriendlyName()
+                                ;
+                            if (!String.IsNullOrEmpty(selServer.group) || !String.IsNullOrEmpty(selServer.remarks))
+                            {
+                                text = text + "\r\n";
+                                if (!String.IsNullOrEmpty(selServer.group))
+                                {
+                                    text = text + selServer.group;
+                                }
+                                text = text + ":";
+                                if (!String.IsNullOrEmpty(selServer.remarks))
+                                {
+                                    text = text + selServer.remarks;
+                                }
+                            }
+                        }
+                    }
+                    if (text.Length > 127)
+                    {
+                        String suffix = "...";
+                        text = text.Substring(0, Math.Min(127 - suffix.Length, text.Length)) + suffix;
+                    }
+                    FixesNotifyIcon.SetNotifyIconText(_notifyIcon, text);
+                    extendOk = true;
+                }
+            }
+            catch (Exception e)
+            {
+                Logging.LogUsefulException(e);
+                extendOk = false;
+            }
+            if (!extendOk)
+            {
+                _notifyIcon.Text = text.Substring(0, Math.Min(63, text.Length));
+            }
         }
 
         private MenuItem CreateMenuItem(string text, EventHandler click)
@@ -594,7 +666,7 @@ namespace Shadowsocks.View
                     controller.SaveServersConfig(config);
                 }
             }
-            
+
             if (count > 0)
             {
                 if (updateFreeNodeChecker.noitify)
@@ -963,7 +1035,7 @@ namespace Shadowsocks.View
             ShowSettingForm();
         }
 
-        private void Quit_Click(object sender, EventArgs e)
+        public void Quit_Click(object sender, EventArgs e)
         {
             controller.Stop();
             if (configForm != null)
@@ -1155,6 +1227,12 @@ namespace Shadowsocks.View
 
         private void AServerItem_Click(object sender, EventArgs e)
         {
+            Configuration config = controller.GetCurrentConfiguration();
+            Console.WriteLine("config.checkSwitchAutoCloseAll:" + config.checkSwitchAutoCloseAll);
+            if (config.checkSwitchAutoCloseAll)
+            {
+                controller.DisconnectAllConnections();
+            }
             MenuItem item = (MenuItem)sender;
             controller.SelectServerIndex((int)item.Tag);
         }
@@ -1196,12 +1274,7 @@ namespace Shadowsocks.View
 
         private void DisconnectCurrent_Click(object sender, EventArgs e)
         {
-            Configuration config = controller.GetCurrentConfiguration();
-            for (int id = 0; id < config.configs.Count; ++id)
-            {
-                Server server = config.configs[id];
-                server.GetConnections().CloseAll();
-            }
+            controller.DisconnectAllConnections();
         }
 
         private void URL_Split(string text, ref List<string> out_urls)
@@ -1484,4 +1557,20 @@ namespace Shadowsocks.View
             showURLFromQRCode();
         }
     }
+
+
+    // https://stackoverflow.com/questions/579665/how-can-i-show-a-systray-tooltip-longer-than-63-chars
+    public class FixesNotifyIcon
+    {
+        public static void SetNotifyIconText(NotifyIcon ni, string text)
+        {
+            if (text.Length >= 128) throw new ArgumentOutOfRangeException("Text limited to 127 characters");
+            Type t = typeof(NotifyIcon);
+            BindingFlags hidden = BindingFlags.NonPublic | BindingFlags.Instance;
+            t.GetField("text", hidden).SetValue(ni, text);
+            if ((bool)t.GetField("added", hidden).GetValue(ni))
+                t.GetMethod("UpdateIcon", hidden).Invoke(ni, new object[] { true });
+        }
+    }
+
 }

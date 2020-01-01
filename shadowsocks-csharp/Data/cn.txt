@@ -42,6 +42,7 @@ Import SSR links from clipboard...=剪贴板批量导入ssr://链接...
 Port settings...=端口设置...
 Server statistic...=服务器连接统计...
 Disconnect current=断开当前所有连接
+Switch auto close TCP links=切换服务器前断开所有连接
 New version {0} {1} available=【点击下载新版本 {0} {1}】
 Help=帮助
 Check update=检查更新
@@ -62,7 +63,9 @@ Global Settings=选项设置
 &Delete=删除(&D)
 Up=上移
 Down=下移
-
+Verion=版本
+Any=任意地址
+Local=本机地址
 New server=未配置的服务器
 
 Server=服务器(截图打码)
@@ -72,6 +75,7 @@ UDP Port=UDP端口
 Password=密码
 Encryption=加密
 Remarks=备注
+Group=群组名
 
 Adv. Setting=高级选项
 Obfs UDP=混淆UDP协议
@@ -86,6 +90,7 @@ Obfs param=混淆参数
 SSR Link=SSR链接
 Original=原版
 Verify all=校验所有数据
+Click the 'Link' text box=点击“SSR链接”文本框
 
 Balance=负载均衡
 OneByOne=按次序
@@ -97,6 +102,8 @@ SelectedFirst=选中优先
 Timer=定时切换
 Balance in group=所选组切换
 AutoBan=自动禁用出错服务器
+Logging=日志记录
+Enable Log=开启日志
 
 Remote proxy=二级（前置）代理
 Proxy On=开启代理
@@ -105,12 +112,15 @@ Socks5(support UDP)=Socks5(支持UDP)
 Http tunnel=Http隧道
 TCP Port tunnel=TCP端口转发(需要相关混淆插件)
 Username=用户名
+User Agent=用户代理
 
 Local proxy=本地代理
 Build-in http proxy=内置http代理(目前有bug)
 Proxy Port=本地端口
+Set Default=重置默认值
+Local Dns=递归DNS
 Reconnect Times=重连次数
- Timeout=连接超时
+ConnectTimeout=连接超时
 TTL=空闲断开秒数
 
 OK=确定

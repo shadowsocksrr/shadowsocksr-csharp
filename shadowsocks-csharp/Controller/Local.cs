@@ -895,11 +895,15 @@ namespace Shadowsocks.Controller
                             ipAddress = Utils.QueryDns(host, null);
                         }
                     }
-                    Logging.Info($"DNS nolock query {host} answer {ipAddress.ToString()}");
                     if (ipAddress != null)
                     {
+                        Logging.Info($"DNS nolock query {host} answer {ipAddress.ToString()}");
                         Utils.DnsBuffer.Set(host, new IPAddress(ipAddress.GetAddressBytes()));
                         Utils.DnsBuffer.Sweep();
+                    }
+                    else
+                    {
+                        Logging.Info($"DNS nolock query {host} no answer.");
                     }
                 }
                 if (ipAddress != null)

@@ -298,6 +298,7 @@
     <Content Include="Data\cn.txt" />
     <None Include="Data\privoxy_conf.txt" />
     <Content Include="Data\user-rule.txt" />
+    <None Include="Data\zh-tw.txt" />
     <Content Include="shadowsocks.ico" />
   </ItemGroup>
   <ItemGroup>

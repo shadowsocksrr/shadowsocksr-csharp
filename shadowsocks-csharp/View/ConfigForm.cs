@@ -33,24 +33,24 @@ namespace Shadowsocks.View
         {
             this.Font = System.Drawing.SystemFonts.MessageBoxFont;
             InitializeComponent();
-            ServersListBox.Font = CreateFont();
+            lstServers.Font = CreateFont();
 
-            NumServerPort.Minimum = IPEndPoint.MinPort;
-            NumServerPort.Maximum = IPEndPoint.MaxPort;
-            NumUDPPort.Minimum = IPEndPoint.MinPort;
-            NumUDPPort.Maximum = IPEndPoint.MaxPort;
+            nudServerPort.Minimum = IPEndPoint.MinPort;
+            nudServerPort.Maximum = IPEndPoint.MaxPort;
+            nudUdpPort.Minimum = IPEndPoint.MinPort;
+            nudUdpPort.Maximum = IPEndPoint.MaxPort;
 
             this.Icon = Icon.FromHandle(Resources.ssw128.GetHicon());
             this.controller = controller;
             this.updateChecker = updateChecker;
             if (updateChecker.LatestVersionURL == null)
-                LinkUpdate.Visible = false;
+                llbUpdate.Visible = false;
 
             foreach (string name in EncryptorFactory.GetEncryptor())
             {
                 EncryptorInfo info = EncryptorFactory.GetEncryptorInfo(name);
                 if (info.display)
-                    EncryptionSelect.Items.Add(name);
+                    cmbEncryption.Items.Add(name);
             }
             UpdateTexts();
             controller.ConfigChanged += controller_ConfigChanged;
@@ -68,43 +68,44 @@ namespace Shadowsocks.View
             }
 
             if (_modifiedConfiguration.isHideTips)
-                PictureQRcode.Visible = false;
+                picQRcode.Visible = false;
 
             int dpi_mul = Util.Utils.GetDpiMul();
-            //ServersListBox.Height = ServersListBox.Height * 4 / dpi_mul;
-            ServersListBox.Width = ServersListBox.Width * dpi_mul / 4;
-            //ServersListBox.Height = ServersListBox.Height * dpi_mul / 4;
-            ServersListBox.Height = checkAdvSetting.Top + checkAdvSetting.Height;
-            AddButton.Width = AddButton.Width * dpi_mul / 4;
-            AddButton.Height = AddButton.Height * dpi_mul / 4;
-            DeleteButton.Width = DeleteButton.Width * dpi_mul / 4;
-            DeleteButton.Height = DeleteButton.Height * dpi_mul / 4;
-            UpButton.Width = UpButton.Width * dpi_mul / 4;
-            UpButton.Height = UpButton.Height * dpi_mul / 4;
-            DownButton.Width = DownButton.Width * dpi_mul / 4;
-            DownButton.Height = DownButton.Height * dpi_mul / 4;
+            //comment
+            ////ServersListBox.Height = ServersListBox.Height * 4 / dpi_mul;
+            //lstServers.Width = lstServers.Width * dpi_mul / 4;
+            ////ServersListBox.Height = ServersListBox.Height * dpi_mul / 4;
+            //lstServers.Height = chkAdvSetting.Top + chkAdvSetting.Height;
+            //btnAdd.Width = btnAdd.Width * dpi_mul / 4;
+            //btnAdd.Height = btnAdd.Height * dpi_mul / 4;
+            //btnDelete.Width = btnDelete.Width * dpi_mul / 4;
+            //btnDelete.Height = btnDelete.Height * dpi_mul / 4;
+            //btnUp.Width = btnUp.Width * dpi_mul / 4;
+            //btnUp.Height = btnUp.Height * dpi_mul / 4;
+            //btnDown.Width = btnDown.Width * dpi_mul / 4;
+            //btnDown.Height = btnDown.Height * dpi_mul / 4;
 
-            //IPTextBox.Width = IPTextBox.Width * dpi_mul / 4;
-            //ServerPortNumericUpDown.Width = ServerPortNumericUpDown.Width * dpi_mul / 4;
-            //PasswordTextBox.Width = PasswordTextBox.Width * dpi_mul / 4;
-            //EncryptionSelect.Width = EncryptionSelect.Width * dpi_mul / 4;
-            //TCPProtocolComboBox.Width = TCPProtocolComboBox.Width * dpi_mul / 4;
-            //ObfsCombo.Width = ObfsCombo.Width * dpi_mul / 4;
-            //TextObfsParam.Width = TextObfsParam.Width * dpi_mul / 4;
-            //RemarksTextBox.Width = RemarksTextBox.Width * dpi_mul / 4;
-            //TextGroup.Width = TextGroup.Width * dpi_mul / 4;
-            //TextLink.Width = TextLink.Width * dpi_mul / 4;
-            //TextUDPPort.Width = TextUDPPort.Width * dpi_mul / 4;
+            ////IPTextBox.Width = IPTextBox.Width * dpi_mul / 4;
+            ////ServerPortNumericUpDown.Width = ServerPortNumericUpDown.Width * dpi_mul / 4;
+            ////PasswordTextBox.Width = PasswordTextBox.Width * dpi_mul / 4;
+            ////EncryptionSelect.Width = EncryptionSelect.Width * dpi_mul / 4;
+            ////TCPProtocolComboBox.Width = TCPProtocolComboBox.Width * dpi_mul / 4;
+            ////ObfsCombo.Width = ObfsCombo.Width * dpi_mul / 4;
+            ////TextObfsParam.Width = TextObfsParam.Width * dpi_mul / 4;
+            ////RemarksTextBox.Width = RemarksTextBox.Width * dpi_mul / 4;
+            ////TextGroup.Width = TextGroup.Width * dpi_mul / 4;
+            ////TextLink.Width = TextLink.Width * dpi_mul / 4;
+            ////TextUDPPort.Width = TextUDPPort.Width * dpi_mul / 4;
 
-            //int font_height = 9;
-            //EncryptionSelect.Height = EncryptionSelect.Height - font_height + font_height * dpi_mul / 4;
-            //TCPProtocolComboBox.Height = TCPProtocolComboBox.Height - font_height + font_height * dpi_mul / 4;
-            //ObfsCombo.Height = ObfsCombo.Height - font_height + font_height * dpi_mul / 4;
+            ////int font_height = 9;
+            ////EncryptionSelect.Height = EncryptionSelect.Height - font_height + font_height * dpi_mul / 4;
+            ////TCPProtocolComboBox.Height = TCPProtocolComboBox.Height - font_height + font_height * dpi_mul / 4;
+            ////ObfsCombo.Height = ObfsCombo.Height - font_height + font_height * dpi_mul / 4;
 
-            //OKButton.Width = OKButton.Width * dpi_mul / 4;
-            OKButton.Height = OKButton.Height * dpi_mul / 4;
-            //MyCancelButton.Width = MyCancelButton.Width * dpi_mul / 4;
-            MyCancelButton.Height = MyCancelButton.Height * dpi_mul / 4;
+            ////OKButton.Width = OKButton.Width * dpi_mul / 4;
+            //btnOK.Height = btnOK.Height * dpi_mul / 4;
+            ////MyCancelButton.Width = MyCancelButton.Width * dpi_mul / 4;
+            //btnCancel.Height = btnCancel.Height * dpi_mul / 4;
 
             DrawLogo(350 * dpi_mul / 4);
             //DrawLogo(350);
@@ -141,48 +142,49 @@ namespace Shadowsocks.View
 
         private void UpdateTexts()
         {
-            this.Text = I18N.GetString("Edit Servers") + "("
-                + (controller.GetCurrentConfiguration().shareOverLan ? "any" : "local") + ":" + controller.GetCurrentConfiguration().localPort.ToString()
-                + I18N.GetString(" Version") + UpdateChecker.FullVersion
+             this.Text = I18N.GetString("Edit Servers") + "("
+                + (controller.GetCurrentConfiguration().shareOverLan ? I18N.GetString("Any") : I18N.GetString("Local")) + ":" + controller.GetCurrentConfiguration().localPort.ToString()
+                +" " +I18N.GetString("Version")+":" + UpdateChecker.FullVersion
                 + ")";
 
-            AddButton.Text = I18N.GetString("&Add");
-            DeleteButton.Text = I18N.GetString("&Delete");
-            UpButton.Text = I18N.GetString("Up");
-            DownButton.Text = I18N.GetString("Down");
+            btnAdd.Text = I18N.GetString("&Add");
+            btnDelete.Text = I18N.GetString("&Delete");
+            btnUp.Text = I18N.GetString("Up");
+            btnDown.Text = I18N.GetString("Down");
 
-            const string mark_str = "* ";
-            IPLabel.Text = mark_str + I18N.GetString("Server IP");
-            ServerPortLabel.Text = mark_str + I18N.GetString("Server Port");
-            labelUDPPort.Text = I18N.GetString("UDP Port");
-            PasswordLabel.Text = mark_str + I18N.GetString("Password");
-            EncryptionLabel.Text = mark_str + I18N.GetString("Encryption");
-            TCPProtocolLabel.Text = mark_str + I18N.GetString(TCPProtocolLabel.Text);
-            labelObfs.Text = mark_str + I18N.GetString(labelObfs.Text);
-            labelRemarks.Text = I18N.GetString("Remarks");
+            const string mark_str = "*";
+            chkIP.Text = mark_str + I18N.GetString("Server IP");
+            lblServerPort.Text = mark_str + I18N.GetString("Server Port");
+            lblUDPPort.Text = I18N.GetString("UDP Port");
+            chkPassword.Text = mark_str + I18N.GetString("Password");
+            lblEncryption.Text = mark_str + I18N.GetString("Encryption");
+            lblTCPProtocol.Text = mark_str + I18N.GetString(lblTCPProtocol.Text);
+            lblObfs.Text = mark_str + I18N.GetString(lblObfs.Text);
+            lblRemarks.Text = I18N.GetString("Remarks");
+            lblGroup.Text = I18N.GetString("Group");
 
-            checkAdvSetting.Text = I18N.GetString(checkAdvSetting.Text);
-            TCPoverUDPLabel.Text = I18N.GetString(TCPoverUDPLabel.Text);
-            UDPoverTCPLabel.Text = I18N.GetString(UDPoverTCPLabel.Text);
-            labelProtocolParam.Text = I18N.GetString(labelProtocolParam.Text);
-            labelObfsParam.Text = I18N.GetString(labelObfsParam.Text);
-            ObfsUDPLabel.Text = I18N.GetString(ObfsUDPLabel.Text);
+            chkAdvSetting.Text = I18N.GetString(chkAdvSetting.Text);
+            lblTcpOverUdp.Text = I18N.GetString(lblTcpOverUdp.Text);
+            lblUdpOverTcp.Text = I18N.GetString(lblUdpOverTcp.Text);
+            lblProtocolParam.Text = I18N.GetString(lblProtocolParam.Text);
+            lblObfsParam.Text = I18N.GetString(lblObfsParam.Text);
+            lblObfsUdp.Text = I18N.GetString(lblObfsUdp.Text);
             LabelNote.Text = I18N.GetString(LabelNote.Text);
-            CheckTCPoverUDP.Text = I18N.GetString(CheckTCPoverUDP.Text);
-            CheckUDPoverUDP.Text = I18N.GetString(CheckUDPoverUDP.Text);
-            CheckObfsUDP.Text = I18N.GetString(CheckObfsUDP.Text);
-            checkSSRLink.Text = I18N.GetString(checkSSRLink.Text);
-            for (int i = 0; i < TCPProtocolComboBox.Items.Count; ++i)
+            chkTcpOverUdp.Text = I18N.GetString(chkTcpOverUdp.Text);
+            chkUdpOverTcp.Text = I18N.GetString(chkUdpOverTcp.Text);
+            chkObfsUDP.Text = I18N.GetString(chkObfsUDP.Text);
+            chkSSRLink.Text = I18N.GetString(chkSSRLink.Text);
+            for (int i = 0; i < cmbTcpProtocol.Items.Count; ++i)
             {
-                TCPProtocolComboBox.Items[i] = I18N.GetString(TCPProtocolComboBox.Items[i].ToString());
+                cmbTcpProtocol.Items[i] = I18N.GetString(cmbTcpProtocol.Items[i].ToString());
             }
 
             ServerGroupBox.Text = I18N.GetString("Server");
 
-            OKButton.Text = I18N.GetString("OK");
-            MyCancelButton.Text = I18N.GetString("Cancel");
-            LinkUpdate.MaximumSize = new Size(ServersListBox.Width, ServersListBox.Height);
-            LinkUpdate.Text = String.Format(I18N.GetString("New version {0} {1} available"), UpdateChecker.Name, updateChecker.LatestVersionNumber);
+            btnOK.Text = I18N.GetString("OK");
+            btnCancel.Text = I18N.GetString("Cancel");
+            llbUpdate.MaximumSize = new Size(lstServers.Width, lstServers.Height);
+            llbUpdate.Text = String.Format(I18N.GetString("New version {0} {1} available"), UpdateChecker.Name, updateChecker.LatestVersionNumber);
         }
 
         private void controller_ConfigChanged(object sender, EventArgs e)
@@ -194,7 +196,7 @@ namespace Shadowsocks.View
         {
             this.Opacity = 1;
             this.Show();
-            IPTextBox.Focus();
+            txtIP.Focus();
         }
 
         private int SaveOldSelectedServer()
@@ -207,18 +209,18 @@ namespace Shadowsocks.View
                 }
                 Server server = new Server
                 {
-                    server = IPTextBox.Text.Trim(),
-                    server_port = Convert.ToInt32(NumServerPort.Value),
-                    server_udp_port = Convert.ToInt32(NumUDPPort.Value),
-                    password = PasswordTextBox.Text,
-                    method = EncryptionSelect.Text,
-                    protocol = TCPProtocolComboBox.Text,
-                    protocolparam = TextProtocolParam.Text,
-                    obfs = ObfsCombo.Text,
-                    obfsparam = TextObfsParam.Text,
-                    remarks = RemarksTextBox.Text,
-                    group = TextGroup.Text.Trim(),
-                    udp_over_tcp = CheckUDPoverUDP.Checked,
+                    server = txtIP.Text.Trim(),
+                    server_port = Convert.ToUInt16(nudServerPort.Value),
+                    server_udp_port = Convert.ToUInt16(nudUdpPort.Value),
+                    password = txtPassword.Text,
+                    method = cmbEncryption.Text,
+                    protocol = cmbTcpProtocol.Text,
+                    protocolparam = txtProtocolParam.Text,
+                    obfs = cmbObfs.Text,
+                    obfsparam = txtObfsParam.Text,
+                    remarks = txtRemarks.Text,
+                    group = txtGroup.Text.Trim(),
+                    udp_over_tcp = chkUdpOverTcp.Checked,
                     //obfs_udp = CheckObfsUDP.Checked,
                     id = _SelectedID
                 };
@@ -263,16 +265,16 @@ namespace Shadowsocks.View
                 Bitmap ngnl = Resources.ngnl;
                 g.DrawImage(ngnl, new Rectangle(0, 0, width, width));
                 if (!_modifiedConfiguration.isHideTips)
-                    g.DrawString("Click the 'Link' text box", new Font("Arial", 14), new SolidBrush(Color.Black), new RectangleF(0, 0, 300, 300));
+                    g.DrawString(I18N.GetString("Click the 'Link' text box"), new Font("宋体", 12), new SolidBrush(Color.Black), new RectangleF(0, 0, 300, 300));
             }
-            PictureQRcode.Image = drawArea;
+            picQRcode.Image = drawArea;
         }
 
         private void GenQR(string ssconfig)
         {
             int dpi_mul = Util.Utils.GetDpiMul();
             int width = 350 * dpi_mul / 4;
-            if (TextLink.Focused)
+            if (txtLink.Focused)
             {
                 string qrText = ssconfig;
                 QRCode code = ZXing.QrCode.Internal.Encoder.encode(qrText, ErrorCorrectionLevel.M);
@@ -301,76 +303,76 @@ namespace Shadowsocks.View
                     int l = (m.Width * div_l + div - 1) / div * blockSize, r = (m.Width * div_r + div - 1) / div * blockSize;
                     g.DrawImage(ngnl, new Rectangle(l + blockSize, l + blockSize, r - l, r - l));
                 }
-                PictureQRcode.Image = drawArea;
-                PictureQRcode.Visible = true;
+                picQRcode.Image = drawArea;
+                picQRcode.Visible = true;
                 _modifiedConfiguration.isHideTips = true;
             }
             else
             {
                 //PictureQRcode.Visible = false;
-                DrawLogo(PictureQRcode.Width);
+                DrawLogo(picQRcode.Width);
             }
         }
 
         private void LoadSelectedServer()
         {
-            if (ServersListBox.SelectedIndex >= 0 && ServersListBox.SelectedIndex < _modifiedConfiguration.configs.Count)
+            if (lstServers.SelectedIndex >= 0 && lstServers.SelectedIndex < _modifiedConfiguration.configs.Count)
             {
-                Server server = _modifiedConfiguration.configs[ServersListBox.SelectedIndex];
+                Server server = _modifiedConfiguration.configs[lstServers.SelectedIndex];
 
-                IPTextBox.Text = server.server;
-                NumServerPort.Value = server.server_port;
-                NumUDPPort.Value = server.server_udp_port;
-                PasswordTextBox.Text = server.password;
-                EncryptionSelect.Text = server.method ?? "aes-256-cfb";
+                txtIP.Text = server.server;
+                nudServerPort.Value = server.server_port;
+                nudUdpPort.Value = server.server_udp_port;
+                txtPassword.Text = server.password;
+                cmbEncryption.Text = server.method ?? "aes-256-cfb";
                 if (string.IsNullOrEmpty(server.protocol))
                 {
-                    TCPProtocolComboBox.Text = "origin";
+                    cmbTcpProtocol.Text = "origin";
                 }
                 else
                 {
-                    TCPProtocolComboBox.Text = server.protocol ?? "origin";
+                    cmbTcpProtocol.Text = server.protocol ?? "origin";
                 }
                 string obfs_text = server.obfs ?? "plain";
-                ObfsCombo.Text = obfs_text;
-                TextProtocolParam.Text = server.protocolparam;
-                TextObfsParam.Text = server.obfsparam;
-                RemarksTextBox.Text = server.remarks;
-                TextGroup.Text = server.group;
-                CheckUDPoverUDP.Checked = server.udp_over_tcp;
+                cmbObfs.Text = obfs_text;
+                txtProtocolParam.Text = server.protocolparam;
+                txtObfsParam.Text = server.obfsparam;
+                txtRemarks.Text = server.remarks;
+                txtGroup.Text = server.group;
+                chkUdpOverTcp.Checked = server.udp_over_tcp;
                 //CheckObfsUDP.Checked = server.obfs_udp;
                 _SelectedID = server.id;
 
                 ServerGroupBox.Visible = true;
 
-                if (TCPProtocolComboBox.Text == "origin"
+                if (cmbTcpProtocol.Text == "origin"
                     && obfs_text == "plain"
-                    && !CheckUDPoverUDP.Checked
+                    && !chkUdpOverTcp.Checked
                     )
                 {
-                    checkAdvSetting.Checked = false;
+                    chkAdvSetting.Checked = false;
                 }
 
-                if (checkSSRLink.Checked)
+                if (chkSSRLink.Checked)
                 {
-                    TextLink.Text = server.GetSSRLinkForServer();
+                    txtLink.Text = server.GetSSRLinkForServer();
                 }
                 else
                 {
-                    TextLink.Text = server.GetSSLinkForServer();
+                    txtLink.Text = server.GetSSLinkForServer();
                 }
 
-                if (CheckTCPoverUDP.Checked || CheckUDPoverUDP.Checked || server.server_udp_port != 0)
+                if (chkTcpOverUdp.Checked || chkUdpOverTcp.Checked || server.server_udp_port != 0)
                 {
-                    checkAdvSetting.Checked = true;
+                    chkAdvSetting.Checked = true;
                 }
 
                 //PasswordLabel.Checked = false;
                 //IPLabel.Checked = false;
                 Update_SSR_controls_Visable();
                 UpdateObfsTextbox();
-                TextLink.SelectAll();
-                GenQR(TextLink.Text);
+                txtLink.SelectAll();
+                GenQR(txtLink.Text);
             }
             else
             {
@@ -380,18 +382,18 @@ namespace Shadowsocks.View
 
         private void LoadConfiguration(Configuration configuration)
         {
-            if (ServersListBox.Items.Count != _modifiedConfiguration.configs.Count)
+            if (lstServers.Items.Count != _modifiedConfiguration.configs.Count)
             {
-                ServersListBox.Items.Clear();
+                lstServers.Items.Clear();
                 foreach (Server server in _modifiedConfiguration.configs)
                 {
                     if (!string.IsNullOrEmpty(server.group))
                     {
-                        ServersListBox.Items.Add(server.group + " - " + server.HiddenName());
+                        lstServers.Items.Add(server.group + " - " + server.HiddenName());
                     }
                     else
                     {
-                        ServersListBox.Items.Add("      " + server.HiddenName());
+                        lstServers.Items.Add("      " + server.HiddenName());
                     }
                 }
             }
@@ -401,11 +403,11 @@ namespace Shadowsocks.View
                 {
                     if (!string.IsNullOrEmpty(_modifiedConfiguration.configs[i].group))
                     {
-                        ServersListBox.Items[i] = _modifiedConfiguration.configs[i].group + " - " + _modifiedConfiguration.configs[i].HiddenName();
+                        lstServers.Items[i] = _modifiedConfiguration.configs[i].group + " - " + _modifiedConfiguration.configs[i].HiddenName();
                     }
                     else
                     {
-                        ServersListBox.Items[i] = "      " + _modifiedConfiguration.configs[i].HiddenName();
+                        lstServers.Items[i] = "      " + _modifiedConfiguration.configs[i].HiddenName();
                     }
                 }
             }
@@ -413,11 +415,11 @@ namespace Shadowsocks.View
 
         public void SetServerListSelectedIndex(int index)
         {
-            ServersListBox.ClearSelected();
-            if (index < ServersListBox.Items.Count)
-                ServersListBox.SelectedIndex = index;
+            lstServers.ClearSelected();
+            if (index < lstServers.Items.Count)
+                lstServers.SelectedIndex = index;
             else
-                _oldSelectedIndex = ServersListBox.SelectedIndex;
+                _oldSelectedIndex = lstServers.SelectedIndex;
         }
 
         private void LoadCurrentConfiguration()
@@ -432,7 +434,7 @@ namespace Shadowsocks.View
 
         private void ServersListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (_oldSelectedIndex == ServersListBox.SelectedIndex || ServersListBox.SelectedIndex == -1)
+            if (_oldSelectedIndex == lstServers.SelectedIndex || lstServers.SelectedIndex == -1)
             {
                 // we are moving back to oldSelectedIndex or doing a force move
                 return;
@@ -442,7 +444,7 @@ namespace Shadowsocks.View
                 int change = SaveOldSelectedServer();
                 if (change == -1)
                 {
-                    ServersListBox.SelectedIndex = _oldSelectedIndex; // go back
+                    lstServers.SelectedIndex = _oldSelectedIndex; // go back
                     return;
                 }
                 if (change == 1)
@@ -451,24 +453,27 @@ namespace Shadowsocks.View
                 }
             }
             if (!_ignoreLoad) LoadSelectedServer();
-            _oldSelectedIndex = ServersListBox.SelectedIndex;
+            _oldSelectedIndex = lstServers.SelectedIndex;
         }
 
         private void UpdateServersListBoxTopIndex(int style = 0)
         {
-            int visibleItems = ServersListBox.ClientSize.Height / ServersListBox.ItemHeight;
+            int visibleItems = lstServers.ClientSize.Height / lstServers.ItemHeight;
             int index;
             if (style == 0)
             {
-                index = ServersListBox.SelectedIndex;
+                index = lstServers.SelectedIndex;
             }
             else
             {
-                var items = ServersListBox.SelectedIndices;
-                index = (style == 1 ? items[0] : items[items.Count - 1]);
+                var items = lstServers.SelectedIndices;
+                if (0 == items.Count)
+                    index = 0;
+                else
+                    index = (style == 1 ? items[0] : items[items.Count - 1]);
             }
             int topIndex = Math.Max(index - visibleItems / 2, 0);
-            ServersListBox.TopIndex = topIndex;
+            lstServers.TopIndex = topIndex;
         }
 
         private void AddButton_Click(object sender, EventArgs e)
@@ -483,14 +488,14 @@ namespace Shadowsocks.View
             _modifiedConfiguration.configs.Insert(_oldSelectedIndex < 0 ? 0 : _oldSelectedIndex + 1, server);
             LoadConfiguration(_modifiedConfiguration);
             _SelectedID = server.id;
-            ServersListBox.SelectedIndex = _oldSelectedIndex + 1;
-            _oldSelectedIndex = ServersListBox.SelectedIndex;
+            lstServers.SelectedIndex = _oldSelectedIndex + 1;
+            _oldSelectedIndex = lstServers.SelectedIndex;
         }
 
         private void DeleteButton_Click(object sender, EventArgs e)
         {
-            _oldSelectedIndex = ServersListBox.SelectedIndex;
-            var items = ServersListBox.SelectedIndices;
+            _oldSelectedIndex = lstServers.SelectedIndex;
+            var items = lstServers.SelectedIndices;
             if (items.Count > 0)
             {
                 int[] array = new int[items.Count];
@@ -518,7 +523,7 @@ namespace Shadowsocks.View
                 _oldSelectedIndex = 0;
             }
             if (_oldSelectedIndex < _modifiedConfiguration.configs.Count)
-                ServersListBox.SelectedIndex = _oldSelectedIndex;
+                lstServers.SelectedIndex = _oldSelectedIndex;
             LoadConfiguration(_modifiedConfiguration);
             SetServerListSelectedIndex(_oldSelectedIndex);
             LoadSelectedServer();
@@ -558,7 +563,7 @@ namespace Shadowsocks.View
 
         private void ConfigForm_Shown(object sender, EventArgs e)
         {
-            IPTextBox.Focus();
+            txtIP.Focus();
         }
 
         private void ConfigForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -568,22 +573,29 @@ namespace Shadowsocks.View
 
         private void UpButton_Click(object sender, EventArgs e)
         {
-            _oldSelectedIndex = ServersListBox.SelectedIndex;
+            _oldSelectedIndex = lstServers.SelectedIndex;
             int index = _oldSelectedIndex;
             SaveOldSelectedServer();
-            var items = ServersListBox.SelectedIndices;
+            var items = lstServers.SelectedIndices;
             if (items.Count == 1)
             {
                 if (index > 0 && index < _modifiedConfiguration.configs.Count)
                 {
                     _modifiedConfiguration.configs.Reverse(index - 1, 2);
-                    ServersListBox.ClearSelected();
-                    ServersListBox.SelectedIndex = _oldSelectedIndex = index - 1;
+                    lstServers.ClearSelected();
+                    lstServers.SelectedIndex = _oldSelectedIndex = index - 1;
                     LoadConfiguration(_modifiedConfiguration);
-                    ServersListBox.ClearSelected();
-                    ServersListBox.SelectedIndex = _oldSelectedIndex = index - 1;
+                    lstServers.ClearSelected();
+                    lstServers.SelectedIndex = _oldSelectedIndex = index - 1;
                     LoadSelectedServer();
                 }
+            }
+            else if (0 == items.Count)
+            {
+                // Handle when server list is empty.
+                _oldSelectedIndex = -1;
+                lstServers.ClearSelected();
+                LoadSelectedServer();
             }
             else
             {
@@ -600,15 +612,19 @@ namespace Shadowsocks.View
                 }
                 _allowSave = false;
                 _ignoreLoad = true;
-                ServersListBox.SelectedIndex = _oldSelectedIndex = index - 1;
+
+                lstServers.SelectedIndex = _oldSelectedIndex = index - 1;
+
                 LoadConfiguration(_modifiedConfiguration);
-                ServersListBox.ClearSelected();
+                lstServers.ClearSelected();
                 foreach (int item in all_items)
                 {
                     if (item != index)
-                        ServersListBox.SelectedIndex = _oldSelectedIndex = item - 1;
+                        lstServers.SelectedIndex = _oldSelectedIndex = item - 1;
                 }
-                ServersListBox.SelectedIndex = _oldSelectedIndex = index - 1;
+
+                lstServers.SelectedIndex = _oldSelectedIndex = index - 1;
+
                 _ignoreLoad = false;
                 _allowSave = true;
                 LoadSelectedServer();
@@ -618,27 +634,34 @@ namespace Shadowsocks.View
 
         private void DownButton_Click(object sender, EventArgs e)
         {
-            _oldSelectedIndex = ServersListBox.SelectedIndex;
+            _oldSelectedIndex = lstServers.SelectedIndex;
             int index = _oldSelectedIndex;
             SaveOldSelectedServer();
-            var items = ServersListBox.SelectedIndices;
+            var items = lstServers.SelectedIndices;
             if (items.Count == 1)
             {
                 if (_oldSelectedIndex >= 0 && _oldSelectedIndex < _modifiedConfiguration.configs.Count - 1)
                 {
                     _modifiedConfiguration.configs.Reverse(index, 2);
-                    ServersListBox.ClearSelected();
-                    ServersListBox.SelectedIndex = _oldSelectedIndex = index + 1;
+                    lstServers.ClearSelected();
+                    lstServers.SelectedIndex = _oldSelectedIndex = index + 1;
                     LoadConfiguration(_modifiedConfiguration);
-                    ServersListBox.ClearSelected();
-                    ServersListBox.SelectedIndex = _oldSelectedIndex = index + 1;
+                    lstServers.ClearSelected();
+                    lstServers.SelectedIndex = _oldSelectedIndex = index + 1;
                     LoadSelectedServer();
                 }
+            }
+            else if (0 == items.Count)
+            {
+                // Handle when server list is empty.
+                _oldSelectedIndex = -1;
+                lstServers.ClearSelected();
+                LoadSelectedServer();
             }
             else
             {
                 List<int> rev_items = new List<int>();
-                int max_index = ServersListBox.Items.Count - 1;
+                int max_index = lstServers.Items.Count - 1;
                 foreach (int item in items)
                 {
                     if (item == max_index)
@@ -651,15 +674,19 @@ namespace Shadowsocks.View
                 }
                 _allowSave = false;
                 _ignoreLoad = true;
-                ServersListBox.SelectedIndex = _oldSelectedIndex = index + 1;
+
+                lstServers.SelectedIndex = _oldSelectedIndex = index + 1;
+
                 LoadConfiguration(_modifiedConfiguration);
-                ServersListBox.ClearSelected();
+                lstServers.ClearSelected();
                 foreach (int item in rev_items)
                 {
                     if (item != index)
-                        ServersListBox.SelectedIndex = _oldSelectedIndex = item + 1;
+                        lstServers.SelectedIndex = _oldSelectedIndex = item + 1;
                 }
-                ServersListBox.SelectedIndex = _oldSelectedIndex = index + 1;
+
+                lstServers.SelectedIndex = _oldSelectedIndex = index + 1;
+
                 _ignoreLoad = false;
                 _allowSave = true;
                 LoadSelectedServer();
@@ -693,13 +720,13 @@ namespace Shadowsocks.View
 
         private void PasswordLabel_CheckedChanged(object sender, EventArgs e)
         {
-            if (PasswordLabel.Checked)
+            if (chkPassword.Checked)
             {
-                PasswordTextBox.UseSystemPasswordChar = false;
+                txtPassword.UseSystemPasswordChar = false;
             }
             else
             {
-                PasswordTextBox.UseSystemPasswordChar = true;
+                txtPassword.UseSystemPasswordChar = true;
             }
         }
 
@@ -707,20 +734,20 @@ namespace Shadowsocks.View
         {
             try
             {
-                Obfs.ObfsBase obfs = (Obfs.ObfsBase)Obfs.ObfsFactory.GetObfs(ObfsCombo.Text);
-                int[] properties = obfs.GetObfs()[ObfsCombo.Text];
+                Obfs.ObfsBase obfs = (Obfs.ObfsBase)Obfs.ObfsFactory.GetObfs(cmbObfs.Text);
+                int[] properties = obfs.GetObfs()[cmbObfs.Text];
                 if (properties[2] > 0)
                 {
-                    TextObfsParam.Enabled = true;
+                    txtObfsParam.Enabled = true;
                 }
                 else
                 {
-                    TextObfsParam.Enabled = false;
+                    txtObfsParam.Enabled = false;
                 }
             }
             catch
             {
-                TextObfsParam.Enabled = true;
+                txtObfsParam.Enabled = true;
             }
         }
 
@@ -747,42 +774,42 @@ namespace Shadowsocks.View
         private void Update_SSR_controls_Visable()
         {
             SuspendLayout();
-            if (checkAdvSetting.Checked)
+            if (chkAdvSetting.Checked)
             {
-                labelUDPPort.Visible = true;
-                NumUDPPort.Visible = true;
+                lblUDPPort.Visible = true;
+                nudUdpPort.Visible = true;
                 //TCPoverUDPLabel.Visible = true;
                 //CheckTCPoverUDP.Visible = true;
             }
             else
             {
-                labelUDPPort.Visible = false;
-                NumUDPPort.Visible = false;
+                lblUDPPort.Visible = false;
+                nudUdpPort.Visible = false;
                 //TCPoverUDPLabel.Visible = false;
                 //CheckTCPoverUDP.Visible = false;
             }
-            if (checkAdvSetting.Checked)
+            if (chkAdvSetting.Checked)
             {
-                UDPoverTCPLabel.Visible = true;
-                CheckUDPoverUDP.Visible = true;
+                lblUdpOverTcp.Visible = true;
+                chkUdpOverTcp.Visible = true;
             }
             else
             {
-                UDPoverTCPLabel.Visible = false;
-                CheckUDPoverUDP.Visible = false;
+                lblUdpOverTcp.Visible = false;
+                chkUdpOverTcp.Visible = false;
             }
             ResumeLayout();
         }
 
         private void IPLabel_CheckedChanged(object sender, EventArgs e)
         {
-            if (IPLabel.Checked)
+            if (chkIP.Checked)
             {
-                IPTextBox.UseSystemPasswordChar = false;
+                txtIP.UseSystemPasswordChar = false;
             }
             else
             {
-                IPTextBox.UseSystemPasswordChar = true;
+                txtIP.UseSystemPasswordChar = true;
             }
         }
     }

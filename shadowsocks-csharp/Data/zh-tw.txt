@@ -42,6 +42,7 @@ Copy address from clipboard...=剪貼板批量導入ssr://連結...
 Port settings...=連接埠設置...
 Server statistic...=伺服器連接統計...
 Disconnect current=斷開當前所有連接
+Switch auto close TCP links=切換伺服器前斷開所有連接
 New version {0} {1} available=【點擊下載新版本 {0} {1}】
 Help=幫助
 Check update=檢查更新
@@ -62,7 +63,9 @@ Global Settings=選項設置
 &Delete=刪除(&D)
 Up=上移
 Down=下移
-
+Version=版本
+Any=任意地址
+Local=本機地址
 New server=未配置的伺服器
 
 Server=伺服器(截圖打碼)
@@ -72,6 +75,7 @@ UDP Port=UDP連接埠
 Password=密碼
 Encryption=加密
 Remarks=備註
+Group=群組名
 
 Adv. Setting=高級選項
 Obfs UDP=混淆UDP協議
@@ -86,6 +90,7 @@ Obfs param=混淆參數
 SSR Link=SSR連結
 Original=原版
 Verify all=校驗所有數據
+Click the 'Link' text box=點擊“SSR鏈接”文本框
 
 Balance=負載均衡
 OneByOne=按次序
@@ -97,6 +102,8 @@ SelectedFirst=選中優先
 Timer=定時切換
 Balance in group=所選組切換
 AutoBan=自動禁用出錯伺服器
+Logging=日誌記錄
+Enable Log=開啟日誌
 
 Remote proxy=二級（前置）代理
 Proxy On=開啟代理
@@ -105,12 +112,15 @@ Socks5(support UDP)=Socks5(支持UDP)
 Http tunnel=Http隧道
 TCP Port tunnel=TCP連接埠轉發(需要相關混淆插件)
 Username=用戶名
+User Agent=用戶代理
 
 Local proxy=本地代理
 Build-in http proxy=內置http代理(目前有bug)
 Proxy Port=本地連接埠
+Set Default=重置缺省值
+Local Dns=遞歸DNS
 Reconnect Times=重連次數
- Timeout=連接超時
+ConnectTimeout=連接超時
 TTL=空閒斷開秒數
 
 OK=確定
@@ -152,9 +162,21 @@ Error Percent=出錯比例
 Continuous=連錯
 Version=版本
 
+# Global Log Form
+
+&File=文件(&F)
+Clear &log=清空日誌(&L)
+Show in &Explorer=在資源管理器中顯示(&E)
+&Close=關閉(&C)
+&View=視圖(&V)
+&Font...=字體設置(&F)...
+&Wrap Text=自動換行(&W)
+&Always on top=置於頂層(&A)
+Log Viewer=日誌查看器
+
 # QRCode Form
 
-QRCode=QR 碼
+QRCode=二維碼
 
 # PAC Url Form
 

@@ -30,32 +30,34 @@ namespace Shadowsocks.View
             controller.ConfigChanged += controller_ConfigChanged;
 
             int dpi_mul = Util.Utils.GetDpiMul();
-            //int font_height = 9;
-            //Font new_font = new Font("Arial", (float)(9.0 * dpi_mul / 4));
-            //this.Font = new_font;
 
-            //comboProxyType.Height = comboProxyType.Height - font_height + font_height * dpi_mul / 4;
-            comboProxyType.Width = comboProxyType.Width * dpi_mul / 4;
-            //RandomComboBox.Height = RandomComboBox.Height - font_height + font_height * dpi_mul / 4;
-            RandomComboBox.Width = RandomComboBox.Width * dpi_mul / 4;
+            //comment
+            ////int font_height = 9;
+            ////Font new_font = new Font("Arial", (float)(9.0 * dpi_mul / 4));
+            ////this.Font = new_font;
 
-            TextS5Server.Width = TextS5Server.Width * dpi_mul / 4;
-            NumS5Port.Width = NumS5Port.Width * dpi_mul / 4;
-            TextS5User.Width = TextS5User.Width * dpi_mul / 4;
-            TextS5Pass.Width = TextS5Pass.Width * dpi_mul / 4;
-            TextUserAgent.Width = TextUserAgent.Width * dpi_mul / 4;
+            ////comboProxyType.Height = comboProxyType.Height - font_height + font_height * dpi_mul / 4;
+            //comboProxyType.Width = comboProxyType.Width * dpi_mul / 4;
+            ////RandomComboBox.Height = RandomComboBox.Height - font_height + font_height * dpi_mul / 4;
+            //RandomComboBox.Width = RandomComboBox.Width * dpi_mul / 4;
 
-            NumProxyPort.Width = NumProxyPort.Width * dpi_mul / 4;
-            TextAuthUser.Width = TextAuthUser.Width * dpi_mul / 4;
-            TextAuthPass.Width = TextAuthPass.Width * dpi_mul / 4;
+            //TextS5Server.Width = TextS5Server.Width * dpi_mul / 4;
+            //NumS5Port.Width = NumS5Port.Width * dpi_mul / 4;
+            //TextS5User.Width = TextS5User.Width * dpi_mul / 4;
+            //TextS5Pass.Width = TextS5Pass.Width * dpi_mul / 4;
+            //TextUserAgent.Width = TextUserAgent.Width * dpi_mul / 4;
 
-            buttonDefault.Height = buttonDefault.Height * dpi_mul / 4;
-            buttonDefault.Width = buttonDefault.Width * dpi_mul / 4;
-            DNSText.Width = DNSText.Width * dpi_mul / 4;
-            LocalDNSText.Width = LocalDNSText.Width * dpi_mul / 4;
-            NumReconnect.Width = NumReconnect.Width * dpi_mul / 4;
-            NumTimeout.Width = NumTimeout.Width * dpi_mul / 4;
-            NumTTL.Width = NumTTL.Width * dpi_mul / 4;
+            //NumProxyPort.Width = NumProxyPort.Width * dpi_mul / 4;
+            //TextAuthUser.Width = TextAuthUser.Width * dpi_mul / 4;
+            //TextAuthPass.Width = TextAuthPass.Width * dpi_mul / 4;
+
+            //buttonDefault.Height = buttonDefault.Height * dpi_mul / 4;
+            //buttonDefault.Width = buttonDefault.Width * dpi_mul / 4;
+            //DNSText.Width = DNSText.Width * dpi_mul / 4;
+            //LocalDNSText.Width = LocalDNSText.Width * dpi_mul / 4;
+            //NumReconnect.Width = NumReconnect.Width * dpi_mul / 4;
+            //NumTimeout.Width = NumTimeout.Width * dpi_mul / 4;
+            //NumTTL.Width = NumTTL.Width * dpi_mul / 4;
 
             LoadCurrentConfiguration();
         }
@@ -67,47 +69,53 @@ namespace Shadowsocks.View
         private void UpdateTexts()
         {
             this.Text = I18N.GetString("Global Settings") + "("
-                + (controller.GetCurrentConfiguration().shareOverLan ? "any" : "local") + ":" + controller.GetCurrentConfiguration().localPort.ToString()
-                + I18N.GetString(" Version") + UpdateChecker.FullVersion
+                + (controller.GetCurrentConfiguration().shareOverLan ? I18N.GetString("Any") : I18N.GetString("Local")) + ":" + controller.GetCurrentConfiguration().localPort.ToString()
+                + " " + I18N.GetString("Version") + ":" + UpdateChecker.FullVersion
                 + ")";
 
-            ListenGroup.Text = I18N.GetString(ListenGroup.Text);
+            gbxListen.Text = I18N.GetString(gbxListen.Text);
             checkShareOverLan.Text = I18N.GetString(checkShareOverLan.Text);
-            ProxyPortLabel.Text = I18N.GetString("Proxy Port");
-            ReconnectLabel.Text = I18N.GetString("Reconnect Times");
-            TTLLabel.Text = I18N.GetString("TTL");
-            labelTimeout.Text = I18N.GetString(labelTimeout.Text);
+            lblProxyPort.Text = I18N.GetString("Proxy Port");
+            btnDefault.Text = I18N.GetString("Set Default");
+            lblLocalDns.Text = I18N.GetString("Local Dns");
+            lblReconnect.Text = I18N.GetString("Reconnect Times");
+            lblTtl.Text = I18N.GetString("TTL");
+            lblTimeout.Text = I18N.GetString(lblTimeout.Text);
 
-            checkAutoStartup.Text = I18N.GetString(checkAutoStartup.Text);
-            checkRandom.Text = I18N.GetString(checkRandom.Text);
-            CheckAutoBan.Text = I18N.GetString("AutoBan");
+            chkAutoStartup.Text = I18N.GetString(chkAutoStartup.Text);
+            chkSwitchAutoCloseAll.Text = I18N.GetString(chkSwitchAutoCloseAll.Text);
+            chkBalance.Text = I18N.GetString(chkBalance.Text);
+            chkAutoBan.Text = I18N.GetString("AutoBan");
+            lblLogging.Text = I18N.GetString("Logging");
+            chkLogEnable.Text = I18N.GetString("Enable Log");
 
-            Socks5ProxyGroup.Text = I18N.GetString(Socks5ProxyGroup.Text);
-            checkBoxPacProxy.Text = I18N.GetString(checkBoxPacProxy.Text);
-            CheckSockProxy.Text = I18N.GetString("Proxy On");
-            LabelS5Server.Text = I18N.GetString("Server IP");
-            LabelS5Port.Text = I18N.GetString("Server Port");
-            LabelS5Server.Text = I18N.GetString("Server IP");
-            LabelS5Port.Text = I18N.GetString("Server Port");
-            LabelS5Username.Text = I18N.GetString("Username");
-            LabelS5Password.Text = I18N.GetString("Password");
-            LabelAuthUser.Text = I18N.GetString("Username");
-            LabelAuthPass.Text = I18N.GetString("Password");
+            gbxSocks5Proxy.Text = I18N.GetString(gbxSocks5Proxy.Text);
+            chkPacProxy.Text = I18N.GetString(chkPacProxy.Text);
+            chkSockProxy.Text = I18N.GetString("Proxy On");
+            lblS5Server.Text = I18N.GetString("Server IP");
+            lblS5Port.Text = I18N.GetString("Server Port");
+            lblS5Server.Text = I18N.GetString("Server IP");
+            lblS5Port.Text = I18N.GetString("Server Port");
+            lblS5Username.Text = I18N.GetString("Username");
+            lblS5Password.Text = I18N.GetString("Password");
+            lblUserAgent.Text = I18N.GetString("User Agent");
+            lblAuthUser.Text = I18N.GetString("Username");
+            lblAuthPass.Text = I18N.GetString("Password");
 
-            LabelRandom.Text = I18N.GetString("Balance");
-            for (int i = 0; i < comboProxyType.Items.Count; ++i)
+            lblBalance.Text = I18N.GetString("Balance");
+            for (int i = 0; i < cmbProxyType.Items.Count; ++i)
             {
-                comboProxyType.Items[i] = I18N.GetString(comboProxyType.Items[i].ToString());
+                cmbProxyType.Items[i] = I18N.GetString(cmbProxyType.Items[i].ToString());
             }
-            checkBalanceInGroup.Text = I18N.GetString("Balance in group");
-            for (int i = 0; i < RandomComboBox.Items.Count; ++i)
+            chkBalanceInGroup.Text = I18N.GetString("Balance in group");
+            for (int i = 0; i < cmbBalance.Items.Count; ++i)
             {
-                _balanceIndexMap[i] = RandomComboBox.Items[i].ToString();
-                RandomComboBox.Items[i] = I18N.GetString(RandomComboBox.Items[i].ToString());
+                _balanceIndexMap[i] = cmbBalance.Items[i].ToString();
+                cmbBalance.Items[i] = I18N.GetString(cmbBalance.Items[i].ToString());
             }
 
-            OKButton.Text = I18N.GetString("OK");
-            MyCancelButton.Text = I18N.GetString("Cancel");
+            btnOK.Text = I18N.GetString("OK");
+            btnCancel.Text = I18N.GetString("Cancel");
         }
 
         private void controller_ConfigChanged(object sender, EventArgs e)
@@ -125,36 +133,38 @@ namespace Shadowsocks.View
         {
             try
             {
-                int localPort = int.Parse(NumProxyPort.Text);
+                int localPort = int.Parse(nudProxyPort.Text);
                 Configuration.CheckPort(localPort);
                 int ret = 0;
                 _modifiedConfiguration.shareOverLan = checkShareOverLan.Checked;
                 _modifiedConfiguration.localPort = localPort;
-                _modifiedConfiguration.reconnectTimes = NumReconnect.Text.Length == 0 ? 0 : int.Parse(NumReconnect.Text);
+                _modifiedConfiguration.reconnectTimes = nudReconnect.Text.Length == 0 ? 0 : int.Parse(nudReconnect.Text);
 
-                if (checkAutoStartup.Checked != AutoStartup.Check() && !AutoStartup.Set(checkAutoStartup.Checked))
+                if (chkAutoStartup.Checked != AutoStartup.Check() && !AutoStartup.Set(chkAutoStartup.Checked))
                 {
                     MessageBox.Show(I18N.GetString("Failed to update registry"));
                 }
-                _modifiedConfiguration.random = checkRandom.Checked;
-                _modifiedConfiguration.balanceAlgorithm = RandomComboBox.SelectedIndex >= 0 && RandomComboBox.SelectedIndex < _balanceIndexMap.Count ? _balanceIndexMap[RandomComboBox.SelectedIndex] : "OneByOne";
-                _modifiedConfiguration.randomInGroup = checkBalanceInGroup.Checked;
-                _modifiedConfiguration.TTL = Convert.ToInt32(NumTTL.Value);
-                _modifiedConfiguration.connectTimeout = Convert.ToInt32(NumTimeout.Value);
-                _modifiedConfiguration.dnsServer = DNSText.Text;
-                _modifiedConfiguration.localDnsServer = LocalDNSText.Text;
-                _modifiedConfiguration.proxyEnable = CheckSockProxy.Checked;
-                _modifiedConfiguration.pacDirectGoProxy = checkBoxPacProxy.Checked;
-                _modifiedConfiguration.proxyType = comboProxyType.SelectedIndex;
-                _modifiedConfiguration.proxyHost = TextS5Server.Text;
-                _modifiedConfiguration.proxyPort = Convert.ToInt32(NumS5Port.Value);
-                _modifiedConfiguration.proxyAuthUser = TextS5User.Text;
-                _modifiedConfiguration.proxyAuthPass = TextS5Pass.Text;
-                _modifiedConfiguration.proxyUserAgent = TextUserAgent.Text;
-                _modifiedConfiguration.authUser = TextAuthUser.Text;
-                _modifiedConfiguration.authPass = TextAuthPass.Text;
+                _modifiedConfiguration.random = chkBalance.Checked;
+                _modifiedConfiguration.balanceAlgorithm = cmbBalance.SelectedIndex >= 0 && cmbBalance.SelectedIndex < _balanceIndexMap.Count ? _balanceIndexMap[cmbBalance.SelectedIndex] : "OneByOne";
+                _modifiedConfiguration.randomInGroup = chkBalanceInGroup.Checked;
+                _modifiedConfiguration.TTL = Convert.ToInt32(nudTTL.Value);
+                _modifiedConfiguration.connectTimeout = Convert.ToInt32(nudTimeout.Value);
+                _modifiedConfiguration.dnsServer = txtDNS.Text;
+                _modifiedConfiguration.localDnsServer = txtLocalDNS.Text;
+                _modifiedConfiguration.proxyEnable = chkSockProxy.Checked;
+                _modifiedConfiguration.pacDirectGoProxy = chkPacProxy.Checked;
+                _modifiedConfiguration.proxyType = cmbProxyType.SelectedIndex;
+                _modifiedConfiguration.proxyHost = txtS5Server.Text;
+                _modifiedConfiguration.proxyPort = Convert.ToInt32(nudS5Port.Value);
+                _modifiedConfiguration.proxyAuthUser = txtS5User.Text;
+                _modifiedConfiguration.proxyAuthPass = txtS5Pass.Text;
+                _modifiedConfiguration.proxyUserAgent = txtUserAgent.Text;
+                _modifiedConfiguration.authUser = txtAuthUser.Text;
+                _modifiedConfiguration.authPass = txtAuthPass.Text;
 
-                _modifiedConfiguration.autoBan = CheckAutoBan.Checked;
+                _modifiedConfiguration.autoBan = chkAutoBan.Checked;
+                _modifiedConfiguration.checkSwitchAutoCloseAll = chkSwitchAutoCloseAll.Checked;
+                _modifiedConfiguration.logEnable = chkLogEnable.Checked;
 
                 return ret;
             }
@@ -168,11 +178,11 @@ namespace Shadowsocks.View
         private void LoadSelectedServer()
         {
             checkShareOverLan.Checked = _modifiedConfiguration.shareOverLan;
-            NumProxyPort.Value = _modifiedConfiguration.localPort;
-            NumReconnect.Value = _modifiedConfiguration.reconnectTimes;
+            nudProxyPort.Value = _modifiedConfiguration.localPort;
+            nudReconnect.Value = _modifiedConfiguration.reconnectTimes;
 
-            checkAutoStartup.Checked = AutoStartup.Check();
-            checkRandom.Checked = _modifiedConfiguration.random;
+            chkAutoStartup.Checked = AutoStartup.Check();
+            chkBalance.Checked = _modifiedConfiguration.random;
             int selectedIndex = 0;
             for (int i = 0; i < _balanceIndexMap.Count; ++i)
             {
@@ -182,25 +192,27 @@ namespace Shadowsocks.View
                     break;
                 }
             }
-            RandomComboBox.SelectedIndex = selectedIndex;
-            checkBalanceInGroup.Checked = _modifiedConfiguration.randomInGroup;
-            NumTTL.Value = _modifiedConfiguration.TTL;
-            NumTimeout.Value = _modifiedConfiguration.connectTimeout;
-            DNSText.Text = _modifiedConfiguration.dnsServer;
-            LocalDNSText.Text = _modifiedConfiguration.localDnsServer;
+            cmbBalance.SelectedIndex = selectedIndex;
+            chkBalanceInGroup.Checked = _modifiedConfiguration.randomInGroup;
+            nudTTL.Value = _modifiedConfiguration.TTL;
+            nudTimeout.Value = _modifiedConfiguration.connectTimeout;
+            txtDNS.Text = _modifiedConfiguration.dnsServer;
+            txtLocalDNS.Text = _modifiedConfiguration.localDnsServer;
 
-            CheckSockProxy.Checked = _modifiedConfiguration.proxyEnable;
-            checkBoxPacProxy.Checked = _modifiedConfiguration.pacDirectGoProxy;
-            comboProxyType.SelectedIndex = _modifiedConfiguration.proxyType;
-            TextS5Server.Text = _modifiedConfiguration.proxyHost;
-            NumS5Port.Value = _modifiedConfiguration.proxyPort;
-            TextS5User.Text = _modifiedConfiguration.proxyAuthUser;
-            TextS5Pass.Text = _modifiedConfiguration.proxyAuthPass;
-            TextUserAgent.Text = _modifiedConfiguration.proxyUserAgent;
-            TextAuthUser.Text = _modifiedConfiguration.authUser;
-            TextAuthPass.Text = _modifiedConfiguration.authPass;
+            chkSockProxy.Checked = _modifiedConfiguration.proxyEnable;
+            chkPacProxy.Checked = _modifiedConfiguration.pacDirectGoProxy;
+            cmbProxyType.SelectedIndex = _modifiedConfiguration.proxyType;
+            txtS5Server.Text = _modifiedConfiguration.proxyHost;
+            nudS5Port.Value = _modifiedConfiguration.proxyPort;
+            txtS5User.Text = _modifiedConfiguration.proxyAuthUser;
+            txtS5Pass.Text = _modifiedConfiguration.proxyAuthPass;
+            txtUserAgent.Text = _modifiedConfiguration.proxyUserAgent;
+            txtAuthUser.Text = _modifiedConfiguration.authUser;
+            txtAuthPass.Text = _modifiedConfiguration.authPass;
 
-            CheckAutoBan.Checked = _modifiedConfiguration.autoBan;
+            chkAutoBan.Checked = _modifiedConfiguration.autoBan;
+            chkSwitchAutoCloseAll.Checked = _modifiedConfiguration.checkSwitchAutoCloseAll;
+            chkLogEnable.Checked = _modifiedConfiguration.logEnable;
         }
 
         private void LoadCurrentConfiguration()
@@ -226,17 +238,17 @@ namespace Shadowsocks.View
 
         private void buttonDefault_Click(object sender, EventArgs e)
         {
-            if (CheckSockProxy.Checked)
+            if (chkSockProxy.Checked)
             {
-                NumReconnect.Value = 4;
-                NumTimeout.Value = 10;
-                NumTTL.Value = 60;
+                nudReconnect.Value = 4;
+                nudTimeout.Value = 10;
+                nudTTL.Value = 60;
             }
             else
             {
-                NumReconnect.Value = 4;
-                NumTimeout.Value = 5;
-                NumTTL.Value = 60;
+                nudReconnect.Value = 4;
+                nudTimeout.Value = 5;
+                nudTTL.Value = 60;
             }
         }
     }

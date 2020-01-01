@@ -554,5 +554,18 @@ namespace Shadowsocks.Controller
                 ShowConfigFormEvent(index, new EventArgs());
             }
         }
+
+        /// <summary>
+        /// Disconnect all connections from the remote host.
+        /// </summary>
+        public void DisconnectAllConnections()
+        {
+            Configuration config = GetCurrentConfiguration();
+            for (int id = 0; id < config.configs.Count; ++id)
+            {
+                Server server = config.configs[id];
+                server.GetConnections().CloseAll();
+            }
+        }
     }
 }

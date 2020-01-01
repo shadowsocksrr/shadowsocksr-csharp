@@ -76,11 +76,17 @@ namespace Shadowsocks
                 if (try_times > 0)
                     Logging.save_to_file = false;
 #endif
+
+                _controller = new ShadowsocksController();
+                HostMap.Instance().LoadHostFile();
+
+                // Logging
+                Configuration cfg = _controller.GetConfiguration();
+                Logging.save_to_file = cfg.logEnable;
+
                 //#if !DEBUG
                 Logging.OpenLogFile();
                 //#endif
-                _controller = new ShadowsocksController();
-                HostMap.Instance().LoadHostFile();
 
 #if _DOTNET_4_0
                 // Enable Modern TLS when .NET 4.5+ installed.
@@ -89,6 +95,7 @@ namespace Shadowsocks
 #endif
 #if !_CONSOLE
                 _viewController = new MenuViewController(_controller);
+                SystemEvents.SessionEnding += _viewController.Quit_Click;
 #endif
 
                 _controller.Start();

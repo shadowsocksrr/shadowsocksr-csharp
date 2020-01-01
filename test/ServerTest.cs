@@ -18,7 +18,7 @@ namespace test
             server.ServerFromSSR(nornameCase, "");
 
             Assert.AreEqual<string>(server.server, "127.0.0.1");
-            Assert.AreEqual<int>(server.server_port, 1234);
+            Assert.AreEqual<ushort>(server.server_port, 1234);
             Assert.AreEqual<string>(server.protocol, "auth_aes128_md5");
             Assert.AreEqual<string>(server.method, "aes-128-cfb");
             Assert.AreEqual<string>(server.obfs, "tls1.2_ticket_auth");
@@ -31,7 +31,7 @@ namespace test
             server.ServerFromSSR(normalCaseWithRemark, "firewallAirport");
 
             Assert.AreEqual<string>(server.server, "127.0.0.1");
-            Assert.AreEqual<int>(server.server_port, 1234);
+            Assert.AreEqual<ushort>(server.server_port, 1234);
             Assert.AreEqual<string>(server.protocol, "auth_aes128_md5");
             Assert.AreEqual<string>(server.method, "aes-128-cfb");
             Assert.AreEqual<string>(server.obfs, "tls1.2_ticket_auth");
@@ -56,6 +56,21 @@ namespace test
                 string val = ServerName.HideServerAddr(key);
                 Assert.AreEqual(addrs[key], val);
             }
+        }
+
+        [TestMethod]
+        public void TestBadPortNumber()
+        {
+            Server server = new Server();
+
+            string link = "ssr://MTI3LjAuMC4xOjgwOmF1dGhfc2hhMV92NDpjaGFjaGEyMDpodHRwX3NpbXBsZTplaWZnYmVpd3ViZ3IvP29iZnNwYXJhbT0mcHJvdG9wYXJhbT0mcmVtYXJrcz0mZ3JvdXA9JnVkcHBvcnQ9NDY0MzgxMzYmdW90PTQ2MDA3MTI4";
+            try {
+                server.ServerFromSSR(link, "");
+            } catch (System.OverflowException e)
+            {
+                Console.Write(e.ToString());
+            }
+
         }
     }
 }
