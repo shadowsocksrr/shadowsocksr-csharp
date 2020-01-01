@@ -419,9 +419,9 @@
             this.chkUdpOverTcp.AutoSize = true;
             this.chkUdpOverTcp.Location = new System.Drawing.Point(102, 382);
             this.chkUdpOverTcp.Name = "chkUdpOverTcp";
-            this.chkUdpOverTcp.Size = new System.Drawing.Size(186, 16);
+            this.chkUdpOverTcp.Size = new System.Drawing.Size(162, 16);
             this.chkUdpOverTcp.TabIndex = 35;
-            this.chkUdpOverTcp.Text = "UDP over TCP if not checked";
+            this.chkUdpOverTcp.Text = "UDP over TCP if checked";
             this.chkUdpOverTcp.UseVisualStyleBackColor = true;
             this.chkUdpOverTcp.Visible = false;
             // 
@@ -466,9 +466,9 @@
             this.chkTcpOverUdp.AutoSize = true;
             this.chkTcpOverUdp.Location = new System.Drawing.Point(102, 360);
             this.chkTcpOverUdp.Name = "chkTcpOverUdp";
-            this.chkTcpOverUdp.Size = new System.Drawing.Size(186, 16);
+            this.chkTcpOverUdp.Size = new System.Drawing.Size(162, 16);
             this.chkTcpOverUdp.TabIndex = 33;
-            this.chkTcpOverUdp.Text = "TCP over UDP if not checked";
+            this.chkTcpOverUdp.Text = "TCP over UDP if checked";
             this.chkTcpOverUdp.UseVisualStyleBackColor = true;
             this.chkTcpOverUdp.Visible = false;
             // 

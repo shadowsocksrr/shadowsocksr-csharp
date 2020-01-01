@@ -174,6 +174,12 @@ namespace Shadowsocks.View
             chkUdpOverTcp.Text = I18N.GetString(chkUdpOverTcp.Text);
             chkObfsUDP.Text = I18N.GetString(chkObfsUDP.Text);
             chkSSRLink.Text = I18N.GetString(chkSSRLink.Text);
+
+            lblTcpOverUdp.Text = I18N.GetString("TCP over UDP");
+            lblUdpOverTcp.Text = I18N.GetString("UDP over TCP");
+            chkTcpOverUdp.Text = I18N.GetString("TCP over UDP if checked");
+            chkUdpOverTcp.Text = I18N.GetString("UDP over TCP if checked");
+
             for (int i = 0; i < cmbTcpProtocol.Items.Count; ++i)
             {
                 cmbTcpProtocol.Items[i] = I18N.GetString(cmbTcpProtocol.Items[i].ToString());
